@@ -13,17 +13,27 @@ return Promise.reject(error);
 axios.interceptors.request.use(function(config){
 	// 统一对ajax返回 结果进行xss防护
 	config.data = config.data||{};
-	let ret="";
-	for (let it in config.data) {
-		ret += encodeURIComponent(it) + '=' + encodeURIComponent(config.data[it]) + '&';
+	if(config.url&&config.url.indexOf("LoginIn")==-1)
+	{
+		let ret="";
+		for (let it in config.data) {
+			ret += encodeURIComponent(it) + '=' + encodeURIComponent(config.data[it]) + '&';
+		}
+	
+		config.data=ret;
 	}
 
-    config.data=ret;
     return config;
 })
 
 export async function login(data:any){
-	return axios.post("/Portal/Organization/LoginIn",data);
+	return axios({
+		url:"/Portal/Organization/LoginIn",
+		data:data,
+		method:"POST",
+		headers:{"Content-Type":"application/json"}
+
+	});
 }
 export async function getUnfinishWorkItems(data:any){
 	let res = await axios.post("/Portal/WorkItem/GetUnfinishWorkItems",data);

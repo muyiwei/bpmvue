@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loginResult:JSON.parse(localStorage.getItem("loginResult")||""),
+    loginResult:JSON.parse(localStorage.getItem("loginResult")||"{}"),
     pageIndex:localStorage.getItem("pageIndex")||0,
     menuIndex:localStorage.getItem("menuIndex")||0
   },
