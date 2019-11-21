@@ -8,6 +8,6 @@ export default{
         console.log(res);
         state.loginResult = res;
         localStorage.setItem("loginResult",JSON.stringify(res));
-        router.push("/home/MyUnfinishedWorkItem")
+        router.push("/home")
     }
 }

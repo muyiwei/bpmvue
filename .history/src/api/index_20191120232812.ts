@@ -30,9 +30,7 @@ export async function login(data:any){
 	return axios({
 		url:"/Portal/Organization/LoginIn",
 		data:data,
-		method:"POST",
-		headers:{"Content-Type":"application/json"}
-
+		
 	});
 }
 export async function getUnfinishWorkItems(data:any){
@@ -40,12 +38,3 @@ export async function getUnfinishWorkItems(data:any){
 	return res;
 }
 
-export async function QueryWorkflowNodes(data:any){
-	let res = await axios.get("/Portal/Workflow/QueryWorkflowNodes",data);
-	return res;
-}
-
-export async function queryWorkflowNodesByParentCode(data:any){
-	let res = await axios.get("/Portal/Workflow/queryWorkflowNodesByParentCode",data);
-	return res;
-}

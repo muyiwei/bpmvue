@@ -53,7 +53,7 @@ export default {
         return v;
       });
       this.workFlowGroups = res;
-  
+      debugger;
     },
     togge: function(workflow) {
       if (!workflow.show && workflow.children.length == 0) {

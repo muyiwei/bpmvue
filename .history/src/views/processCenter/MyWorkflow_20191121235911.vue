@@ -2,7 +2,7 @@
   <div class="tabel-container">
     <el-row>
       <el-col :span="6">
-        <el-input placeholder="流程模板名"  @input="getUnfinishWorkItems()">
+        <el-input placeholder="流程模板名" v-model="keyWord" @input="getUnfinishWorkItems()">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="getUnfinishWorkItems()"></i>
         </el-input>
       </el-col>
@@ -50,10 +50,8 @@ export default {
       let res = await QueryWorkflowNodes(data);
       res = res.map(function(v) {
         v.show = false;
-        return v;
       });
       this.workFlowGroups = res;
-  
     },
     togge: function(workflow) {
       if (!workflow.show && workflow.children.length == 0) {

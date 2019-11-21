@@ -3,7 +3,7 @@
     <el-row>
       <el-col  :span="6">
   <el-input
-    placeholder="流程名"
+    placeholder="流程模板名"
     v-model="keyWord" @input="getUnfinishWorkItems()">
     <i slot="suffix" class="el-input__icon el-icon-search" @click="getUnfinishWorkItems()"></i>
   </el-input>
@@ -27,17 +27,12 @@
 </template>
 
 <script>
-import { getUnfinishWorkItems } from "../../api/index";
+import { QueryWorkflowNodes } from "../../api/index";
 import Loading from "@/components/Loading"
 export default {
   data() {
     return {
-      keyWord: "",
-      iDisplayStart: 0,
-      iDisplayLength: 10,
-      rows:"",
-      total:0,
-      loading:false,
+        workflows:"",
   
     };
   },
@@ -45,20 +40,22 @@ export default {
      Loading
   },
   created() {
-      this.getUnfinishWorkItems();
+      this.QueryWorkflowNodes();
   },
   computed: {
   },
   methods: {
-     getUnfinishWorkItems: async function(){
+     QueryWorkflowNodes: async function(){
        let data = {
-        keyWord: this.keyWord,
-        iDisplayStart: this.iDisplayStart,
-        iDisplayLength: this.iDisplayLength,
+        IsMobile: false,
+        from: "portal_myWorkflow",
+        limit: 20,
+        offset: 0,
+        order: "asc"
   
        };
       this.loading = true;
-      let res = await  getUnfinishWorkItems(data);
+      let res = await  QueryWorkflowNodes(data);
       this.loading = false;
       this.rows = res.Rows;
       this.total = res.Total;

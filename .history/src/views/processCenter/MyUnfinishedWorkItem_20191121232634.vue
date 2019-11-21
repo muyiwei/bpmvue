@@ -4,7 +4,7 @@
       <el-col  :span="6">
   <el-input
     placeholder="流程名"
-    v-model="keyWord" @input="getUnfinishWorkItems()">
+    v-model="keyWord">
     <i slot="suffix" class="el-input__icon el-icon-search" @click="getUnfinishWorkItems()"></i>
   </el-input>
       </el-col>
@@ -38,7 +38,7 @@ export default {
       rows:"",
       total:0,
       loading:false,
-  
+      keyWord:""
     };
   },
   components:{
@@ -55,7 +55,7 @@ export default {
         keyWord: this.keyWord,
         iDisplayStart: this.iDisplayStart,
         iDisplayLength: this.iDisplayLength,
-  
+        keyWord:this.keyWord
        };
       this.loading = true;
       let res = await  getUnfinishWorkItems(data);

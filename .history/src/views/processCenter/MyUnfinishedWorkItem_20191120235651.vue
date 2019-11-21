@@ -1,14 +1,5 @@
 <template>
-  <div class="tabel-container">
-    <el-row>
-      <el-col  :span="6">
-  <el-input
-    placeholder="流程名"
-    v-model="keyWord" @input="getUnfinishWorkItems()">
-    <i slot="suffix" class="el-input__icon el-icon-search" @click="getUnfinishWorkItems()"></i>
-  </el-input>
-      </el-col>
-    </el-row> 
+  <div>
     <el-table :data="rows" style="width: 100%">
       <el-table-column prop="InstanceName" label="流程名称" width="180"></el-table-column>
       <el-table-column prop="DisplayName" label="任务名称" width="180"></el-table-column>
@@ -17,8 +8,7 @@
       <el-table-column prop="OriginatorOUName" label="发起人所属组织" width="180"></el-table-column>
 
     </el-table>
-    <loading v-show="loading"></loading>
-    <el-pagination layout="sizes, prev, pager, next" :total="total" :pageCount="iDisplayLength" @size-change="sizeChange"
+    <el-pagination layout="sizes, prev, pager, next" :total="total" :pageCount="iDisplayLength" @sizeChange="sizeChange"
 
  @current-change="pageChange" >
 
@@ -28,7 +18,6 @@
 
 <script>
 import { getUnfinishWorkItems } from "../../api/index";
-import Loading from "@/components/Loading"
 export default {
   data() {
     return {
@@ -37,12 +26,7 @@ export default {
       iDisplayLength: 10,
       rows:"",
       total:0,
-      loading:false,
-  
     };
-  },
-  components:{
-     Loading
   },
   created() {
       this.getUnfinishWorkItems();
@@ -54,21 +38,17 @@ export default {
        let data = {
         keyWord: this.keyWord,
         iDisplayStart: this.iDisplayStart,
-        iDisplayLength: this.iDisplayLength,
-  
+        iDisplayLength: this.iDisplayLength
        };
-      this.loading = true;
-      let res = await  getUnfinishWorkItems(data);
-      this.loading = false;
-      this.rows = res.Rows;
-      this.total = res.Total;
+         let res = await  getUnfinishWorkItems(data)
+         this.rows = res.Rows;
+         this.total = res.Total;
       },
       pageChange(pageIndex){
           this.iDisplayStart = (pageIndex-1)*this.iDisplayLength;
       },
       sizeChange(size){
         this.iDisplayLength = size;
-        debugger;
       }
   },
   watch:{
@@ -82,8 +62,5 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-.tabel-container{
-  position:relative;
-}
+<style>
 </style>

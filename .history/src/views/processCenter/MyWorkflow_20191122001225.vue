@@ -50,10 +50,8 @@ export default {
       let res = await QueryWorkflowNodes(data);
       res = res.map(function(v) {
         v.show = false;
-        return v;
       });
       this.workFlowGroups = res;
-  
     },
     togge: function(workflow) {
       if (!workflow.show && workflow.children.length == 0) {

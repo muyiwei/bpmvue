@@ -3,7 +3,7 @@
     <el-row>
       <el-col  :span="6">
   <el-input
-    placeholder="流程名"
+    placeholder="流程模板名"
     v-model="keyWord" @input="getUnfinishWorkItems()">
     <i slot="suffix" class="el-input__icon el-icon-search" @click="getUnfinishWorkItems()"></i>
   </el-input>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { getUnfinishWorkItems } from "../../api/index";
+import { QueryWorkflowNodes } from "../../api/index";
 import Loading from "@/components/Loading"
 export default {
   data() {

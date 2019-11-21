@@ -4,7 +4,7 @@
       <el-col  :span="6">
   <el-input
     placeholder="流程名"
-    v-model="keyWord" @input="getUnfinishWorkItems()">
+    v-model="keyWord">
     <i slot="suffix" class="el-input__icon el-icon-search" @click="getUnfinishWorkItems()"></i>
   </el-input>
       </el-col>

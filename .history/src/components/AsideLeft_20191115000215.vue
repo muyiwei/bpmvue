@@ -58,7 +58,7 @@ export default {
       })
       var url = item.Url.split(".")[1].split("(")[0];
       debugger;
-      this.$router.push("/home/"+url)
+      this.$router.push("home/"+url)
       
     }
   }

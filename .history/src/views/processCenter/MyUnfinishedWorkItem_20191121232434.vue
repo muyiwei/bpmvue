@@ -1,10 +1,10 @@
 <template>
   <div class="tabel-container">
     <el-row>
-      <el-col  :span="6">
+      <el-col class="" :span="6">
   <el-input
     placeholder="流程名"
-    v-model="keyWord" @input="getUnfinishWorkItems()">
+    v-model="searchkey">
     <i slot="suffix" class="el-input__icon el-icon-search" @click="getUnfinishWorkItems()"></i>
   </el-input>
       </el-col>
@@ -38,7 +38,6 @@ export default {
       rows:"",
       total:0,
       loading:false,
-  
     };
   },
   components:{
@@ -54,8 +53,7 @@ export default {
        let data = {
         keyWord: this.keyWord,
         iDisplayStart: this.iDisplayStart,
-        iDisplayLength: this.iDisplayLength,
-  
+        iDisplayLength: this.iDisplayLength
        };
       this.loading = true;
       let res = await  getUnfinishWorkItems(data);

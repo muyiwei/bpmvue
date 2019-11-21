@@ -41,11 +41,11 @@ export async function getUnfinishWorkItems(data:any){
 }
 
 export async function QueryWorkflowNodes(data:any){
-	let res = await axios.get("/Portal/Workflow/QueryWorkflowNodes",data);
+	let res = await axios.post("/Portal/WorkItem/QueryWorkflowNodes",data);
 	return res;
 }
 
 export async function queryWorkflowNodesByParentCode(data:any){
-	let res = await axios.get("/Portal/Workflow/queryWorkflowNodesByParentCode",data);
+	let res = await axios.post("/Portal/WorkItem/queryWorkflowNodesByParentCode",data);
 	return res;
 }

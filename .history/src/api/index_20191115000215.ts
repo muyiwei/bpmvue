@@ -13,39 +13,20 @@ return Promise.reject(error);
 axios.interceptors.request.use(function(config){
 	// 统一对ajax返回 结果进行xss防护
 	config.data = config.data||{};
-	if(config.url&&config.url.indexOf("LoginIn")==-1)
-	{
-		let ret="";
-		for (let it in config.data) {
-			ret += encodeURIComponent(it) + '=' + encodeURIComponent(config.data[it]) + '&';
-		}
-	
-		config.data=ret;
+	let ret="";
+	for (let it in config.data) {
+		ret += encodeURIComponent(it) + '=' + encodeURIComponent(config.data[it]) + '&';
 	}
 
+    config.data=ret;
     return config;
 })
 
 export async function login(data:any){
-	return axios({
-		url:"/Portal/Organization/LoginIn",
-		data:data,
-		method:"POST",
-		headers:{"Content-Type":"application/json"}
-
-	});
+	return axios.post("/Portal/Organization/LoginIn",data);
 }
 export async function getUnfinishWorkItems(data:any){
 	let res = await axios.post("/Portal/WorkItem/GetUnfinishWorkItems",data);
 	return res;
 }
 
-export async function QueryWorkflowNodes(data:any){
-	let res = await axios.get("/Portal/Workflow/QueryWorkflowNodes",data);
-	return res;
-}
-
-export async function queryWorkflowNodesByParentCode(data:any){
-	let res = await axios.get("/Portal/Workflow/queryWorkflowNodesByParentCode",data);
-	return res;
-}
