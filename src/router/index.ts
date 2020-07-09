@@ -44,6 +44,17 @@ const routes = [
     name: "login",
     component: () => import('../views/Login.vue')
   }
+  ,
+  {
+    path:"/mobile/login",
+    name:"login",
+    component:()=>import('../views/mobile/Login.vue')
+  },
+  {
+    path:"/mobile/home",
+    name:"home",
+    component:()=>import('../views/mobile/Home.vue')
+  }
 ]
 
 const router = new VueRouter({

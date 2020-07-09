@@ -1,4 +1,5 @@
 import axios from "axios"
+//import md5 from 'js-md5';
 //axios.defaults.baseURL = "/api/";
 axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 axios.interceptors.response.use(function(response){
@@ -6,7 +7,7 @@ axios.interceptors.response.use(function(response){
 	return response.data;
 },function(error){
 
-console.log(error.message);
+//console.log(error.message);
 return Promise.reject(error);
 })
 
@@ -27,6 +28,7 @@ axios.interceptors.request.use(function(config){
 })
 
 export async function login(data:any){
+	//data.password = data.password;
 	return axios({
 		url:"/Portal/Organization/LoginIn",
 		data:data,

@@ -6,11 +6,23 @@
               </div>
         </header>
         <div class="login-main">
+
+               
                <div class="form-container">
                    <div class="login-bg">
 
                    </div>
                    <div class="login-form">
+
+
+                                    <soltTest>
+                                   <template slot="test" #="t,t1">
+                                    <span style="color:blue">{{t1}}</span>
+                              
+                                    </template> 
+
+                                   </soltTest>
+
                        <div class="login-title">
                            登录
                        </div>
@@ -35,7 +47,7 @@
 </template>
 <script>
 import {mapActions} from "vuex";
-import md5 from 'js-md5';
+import soltTest from "../components/soltTest.vue"
 export default {
     data:function(){
         return {
@@ -43,15 +55,22 @@ export default {
             userName:""
         }
     },
+    components:{
+        soltTest
+    }
+    ,
     methods:{
         ...mapActions(["login"]),
         loginClick:function(){
-         this.login({
-                password:md5(this.password),
+         this.login({data:{
+                password:this.password,
                 userCode:this.userName
-            });
+            },callback:function(){
+            router.push("/home")
+          }});
 
         }
+        
     }
 }
 </script>
