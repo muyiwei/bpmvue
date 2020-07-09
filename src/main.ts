@@ -5,7 +5,6 @@ import store from './store'
 import './registerServiceWorker'
 import $ from "jquery";
 import {a} from "./test";
-import "vuets/src/main.ts";
 Vue.config.productionTip = false
 
 new Vue({
