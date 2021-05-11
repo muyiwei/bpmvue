@@ -57,7 +57,6 @@ export default {
         item = item.Children[value]
       })
       var url = item.Url.split(".")[1].split("(")[0];
-      debugger;
       this.$router.push("/home/"+url)
       
     }

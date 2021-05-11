@@ -1,173 +1,87 @@
 <template>
-    <div class="login-body">
-        <header class="login-header">
-              <div class="login-log">
-                     
-              </div>
-        </header>
-        <div class="login-main">
-
-               
-               <div class="form-container">
-                   <div class="login-bg">
-
-                   </div>
-                   <div class="login-form">
-
-
-                                    <soltTest>
-                                   <template slot="test" #="t,t1">
-                                    <span style="color:blue">{{t1}}</span>
-                              
-                                    </template> 
-
-                                   </soltTest>
-
-                       <div class="login-title">
-                           登录
-                       </div>
-                       <div class="form-input">
-                           <div class="input-container"> 
-                               <input type="text" name="userName" v-model="userName">
-                           </div>
-                           <div class="input-container">
-                               <input type="password" name="password" v-model="password">
-                           </div>
-                       </div>
-                       <div class="login-btn-container">
-                           <div class="login-btn" @click="loginClick()">登录</div>
-                       </div>
-                   </div>
-               </div>
-        </div>
-        <footer class="login-footer">
-             版权所有 ©深圳奥哲网络科技有限公司 粤ICP备10083177号
-        </footer>
-    </div>
+  <div id="app">
+      <my-scroll class="scrolls" ref="myScroll" :on-pull="getList" :loaded="loaded" :scroll-state="scrollState">
+          <div slot="scrollList">
+            <div class="list" v-for="(item,index) in listData" :key="index">{{item}}</div>
+          </div>
+      </my-scroll>
+      
+  </div>
 </template>
 <script>
-import {mapActions} from "vuex";
-import soltTest from "../components/soltTest.vue"
+import myScroll from "@/components/List.vue";
+import axios from 'axios'
 export default {
-    data:function(){
-        return {
-            password:"",
-            userName:""
-        }
-    },
-    components:{
-        soltTest
+  name: "app",
+  data(){
+    return{
+      scrollState: true, // 是否可以滑动
+      loaded: false,
+      iPage: 1,
+      listData:[],
+      iPageSize: 10,
     }
-    ,
-    methods:{
-        ...mapActions(["login"]),
-        loginClick:function(){
-         this.login({data:{
-                password:this.password,
-                userCode:this.userName
-            },callback:function(){
-            router.push("/home")
-          }});
-
+  },
+  methods: {
+    getList(){
+       this.$refs.myScroll.setState(1)
+       let _this = this
+       var a =10;
+       while(a--)
+       {
+           _this.listData.push(Math.random()*100)
+       }
+    //    // ajax 请求
+    //     axios.get('https://easy-mock.com/mock/5b90f971ce624c454133ee2d/scoll/datalist').then(function (response) {
+    //         if (response.data.code == 200 && response.data.data.pagelist.length > 0 && !_this.loaded) {
+    //           if (_this.iPage == 1) {
+    //             _this.listData = response.data.data.pagelist
+    //           } else {
+    //             _this.listData.push(...response.data.data.pagelist)
+    //           }
+    //           _this.iPage++
+    //           _this.$refs.myScroll.setState(2)
+    //         } else {
+    //           if (_this.iPage == 1) {
+    //             _this.czListData = []
+    //           }
+    //           _this.loaded = true
+    //           _this.$refs.myScroll.setState(3)
+    //         }   
+    //       })
+    //       .catch(function (error) {
+    //         console.log(error);
+    //       });
         }
-        
-    }
-}
+    
+  },
+  mounted () {
+    this.getList()  
+  },
+  components: {
+    myScroll
+  }
+};
 </script>
-<style lang="less" scoped>
-@headerHeight:60px;
-@footerHeight:60px;
-@headerPaddingLeft:24px;
-@loginFormWidth: 1066px;
-.login-body{
-    .login-header{
-        position:fixed;
-        height:@headerHeight;
-        padding-left:@headerPaddingLeft;
-        top:0;
-        left:0;
-        right:0;
-        display:flex;
-        align-items: center;
-        .login-log{
-            background:url(../css/img/H3-BPMLogo.png);
-            width:126px;
-            height:30px;
-            background-size:cover;
-        }
-    }
-    .login-main{
-        background:#002638;
-        position:absolute;
-        top:0;
-        bottom:0;
-        left:0;
-        right:0;
-        margin:@headerHeight 0 @footerHeight 0;
-        overflow: auto;
-        .form-container{
-            position:absolute;
-            top:0;
-            bottom:0;
-            left:0;
-            right:0;
-            width: @loginFormWidth;
-            margin:0 auto;
-            display:flex;
-            align-items: center;
-            padding-top:20px;
-            .login-bg{
-                width:671px;
-                height:418px;
-                background:url(../css/img/bj.png) ;
-            }
-            .login-form{
-                width:300px;
-                height:400px;
-                padding:0 20px;
-                background:#fff;
-                .login-title{
-                    margin:50px 0 ;
-                    text-align: center;
-                    font-size:30px;
 
-                }
-                .input-container{
-                    margin-bottom:30px;
-                    input{
-                        padding: 5px 12px;
-                        font-size:14px;
-                        border: 1px solid #d9d9d9;
-                        border-radius: 4px; 
-                        display:block;
-                        outline: none;
-                        width:100%;
-                        box-sizing: border-box;
-                    }
-                }
-                .login-btn{
-                    height:30px;
-                    line-height: 30px;
-                    background:#17bc94;
-                    color:#fff;
-                    border-radius: 5px;
-                    text-align: center;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-    .login-footer{
-        position:fixed;
-        bottom:0;
-        height:@footerHeight;
-        left:0;
-        right:0;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+<style scoped>
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
-
+.scrolls{
+  font-size:.24rem;
+}
+.list{
+  height:150px;
+  line-height: .9rem;
+  margin-bottom:.1rem;
+  border-bottom:1px solid #dedede;
+  color:#999;
+  font-size:.28rem;
+}
 </style>

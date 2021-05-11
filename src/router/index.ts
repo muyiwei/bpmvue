@@ -5,6 +5,8 @@ import Login from '../views/Login.vue'
 import MyInstance from '../views/processCenter/MyInstance.vue'
 import MyUnfinishedWorkItem from '../views/processCenter/MyUnfinishedWorkItem.vue'
 import MyWorkflow from '../views/processCenter/MyWorkflow.vue'
+import application from '@/views/application/index.vue';
+import applicationList from '@/views/application/application-list.vue';
 Vue.use(VueRouter)
 
 const routes = [
@@ -12,6 +14,18 @@ const routes = [
     path: '/',
     name: 'login',
     component: Login
+  },
+  {
+    path:"/application/:appCode",
+    name:"application",
+    component:application,
+    children:[
+      {
+        path:"application-list/:listCode",
+        name:"applicationList",
+        component:applicationList
+      }      
+    ]
   },
   {
     path: '/home',
@@ -58,7 +72,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })
